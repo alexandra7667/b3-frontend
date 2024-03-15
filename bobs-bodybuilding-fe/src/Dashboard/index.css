@@ -1,0 +1,41 @@
+/* make the main fill the remaining width and the full height of the parent */
+.dashboard_layout {
+  flex-grow: 1;
+  /* if contents of main overflow from the height, add a scrollbar on main */
+  overflow-y: auto;
+
+  /* fix the sidebar to be 100 viewport minus the header */
+  /* max-height: calc(100vh - 20px); */
+  max-height: 1000px;
+
+  background-color: rgb(163, 226, 141);
+}
+
+.dashboard_grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  flex-direction: row;
+  flex-grow: 1;
+  background-color: rgb(163, 226, 141);
+  margin-inline: 3%;
+
+  height: 100%;
+
+  text-align: center;
+}
+
+.program_column {
+  overflow-y: scroll;
+  background-color: rgb(17, 150, 137);
+  height: 800px;
+  margin: 20px;
+  border-radius: 2%;
+}
+
+.exercise_column {
+  overflow-y: scroll;
+  background-color: rgb(41, 144, 217);
+  height: 800px;
+  margin: 20px;
+  border-radius: 2%;
+}

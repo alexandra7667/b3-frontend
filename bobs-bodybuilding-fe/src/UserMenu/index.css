@@ -1,0 +1,40 @@
+.menu_grid {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    flex-direction: row;
+    flex-grow: 1;
+    background-color: rgb(79, 118, 66);
+    margin-inline: 0%;
+
+    max-height: 70px;
+
+    text-align: center;
+}
+
+.left_column{
+    height: 100%;
+    width: 100%;
+}
+
+.middle_column{
+    height: 100%;
+    width: 100%;
+}
+
+.right_column{
+    height: 100%;
+    width: 100%;
+}
+
+.menu_button {
+    text-align: center;
+    font-size: large;
+    font-weight: 100;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(79, 118, 66);
+}
+
+.menu_button:hover {
+    background-color: rgb(12, 78, 26);
+}
