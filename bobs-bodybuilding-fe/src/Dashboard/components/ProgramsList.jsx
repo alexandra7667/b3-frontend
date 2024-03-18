@@ -13,7 +13,7 @@ export default function ProgramsList() {
     // const { setClickedProgram } = props;
 
     return (
-      <div className="program_column">
+      <>
         <h3>My Programs</h3>
         {progContext.programs.map((program, index) => (
           <ProgramsItem
@@ -22,6 +22,6 @@ export default function ProgramsList() {
             // setClickedProgram={setClickedProgram}
           />
         ))}
-      </div>
+      </>
     );
 }

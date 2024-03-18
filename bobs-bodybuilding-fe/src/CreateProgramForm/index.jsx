@@ -1,92 +1,65 @@
-// import { useState, useContext } from "react";
-// import { ProgramsContext } from "../App";
-// import { useNavigate } from "react-router-dom";
-// import "./index.css";
+import { useContext, useState } from "react";
+import "./index.css";
+import { NewProgramExercisesContect } from "../Dashboard";
 
-// export default function CreatePostForm() {
-//   const progContext = useContext(ProgramsContext);
+export default function CreateProgramForm() {
 
-//   const navigate = useNavigate();
+  const [newProgram, setNewProgram] = useState({
+    title: ""
+  });
 
-//   const [newPost, setNewPost] = useState({
-//     title: "",
-//     content: "",
-//     contactId: progContext.mainUserId,
-//   });
+  const newExercisesContext = useContext(NewProgramExercisesContect);
 
-//   const handleChange = (event) => {
-//     const inputName = event.target.name;
-//     const inputValue = event.target.value;
+  const handleChange = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
 
-//     if (inputName === "title") {
-//       setNewPost({ ...newPost, title: inputValue });
-//     }
-//     if (inputName === "content") {
-//       setNewPost({ ...newPost, content: inputValue });
-//     }
-//   };
+    if (inputName === "title") {
+      setNewProgram({ ...newProgram, title: inputValue });
+    }
+  };
 
-//   const handlePost = (event) => {
-//     event.preventDefault();
+  const handlePost = (event) => {
+    event.preventDefault();
 
-//     fetch("https://boolean-api-server.fly.dev/svennas/post", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(newPost),
-//     })
-//       .then((resp) => resp.json())
-//       .then((postNew) => postContext.setPosts((post) => [...post, postNew]));
+    // fetch("https://boolean-api-server.fly.dev/svennas/post", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(newProgram),
+    // })
+    //   .then((resp) => resp.json())
+    //   .then((postNew) => progContext.setPrograms((post) => [...post, postNew]));
 
-//     setNewPost({ ...newPost, title: "", content: "" });
-//   };
+    setNewProgram({ ...newProgram, title: ""});
+  };
 
-//   let mainUser = userContext.users.find(
-//     (user) => user.id === userContext.mainUserId
-//   );
-//   if (!mainUser) return <div></div>;
+  return (
+    <form className="create_program_layout">
+      <div className="insertion_div ">
+        <label>Program name: </label>
+        <input
+          className="title_input"
+          type="text"
+          id="title"
+          name="title"
+          value={newProgram.title}
+          onChange={handleChange}
+        />
+        <p></p>
 
-//   const goToProfile = () => {
-//     navigate(`/view_profile/${mainUser.id}`);
-//   };
+        {(newExercisesContext.exercisesInNewProgram.length !== 0) && (
+          newExercisesContext.exercisesInNewProgram.map((exercise, index) => (
+            <li key={index}>
+              <h2>{exercise.title}</h2>
+              <p>{exercise.description}</p>
+            </li>
+          ))
+        )}
 
-//   return (
-//     <form className="create_post_layout">
-//       <div className="icon_div">
-//         <button
-//           className=" poster_circle_button"
-//           style={{ backgroundColor: mainUser.favouriteColour }}
-//           onClick={goToProfile}
-//         >
-//           <p className=" poster_circle_text">
-//             {mainUser.firstName.charAt(0)}
-//             {mainUser.lastName.charAt(0)}
-//           </p>
-//         </button>
-//       </div>
-//       <div className="insertion_div ">
-//         <input
-//           className="title_input"
-//           type="text"
-//           id="title"
-//           name="title"
-//           placeholder="Title it!"
-//           value={newPost.title}
-//           onChange={handleChange}
-//         />
-//         <p></p>
-//         <input
-//           className="content_input"
-//           type="text"
-//           id="content"
-//           name="content"
-//           placeholder="What's on your mind?"
-//           value={newPost.content}
-//           onChange={handleChange}
-//         />
-//         <button className="post_button" type="submit" onClick={handlePost}>
-//           <p className="button_text">Post</p>
-//         </button>
-//       </div>
-//     </form>
-//   );
-// }
+        <button className="post_button" type="submit" onClick={handlePost}>
+          <p className="button_text">Post</p>
+        </button>
+      </div>
+    </form>
+  );
+}

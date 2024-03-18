@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-//import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./Header";
 import UserMenu from "./UserMenu";
@@ -10,6 +10,8 @@ import { shared_exercises_data } from "../test_data/shared_exercises_data";
 const ProgramsContext = createContext();
 const ExercisesContext = createContext();
 
+const ModeContext = createContext();
+
 const test_programs = programs_data;
 const test_exercises = shared_exercises_data;
 
@@ -17,6 +19,8 @@ function App() {
   const [programs, setPrograms] = useState([]);
   const [privateExercises, setPrivateExercises] = useState([]);
   const [sharedExercises, setSharedExercises] = useState([]);
+
+  const [modeDecider, setModeDecider] = useState("show programs");
 
   useEffect(() => {
     setPrograms(test_programs);
@@ -40,24 +44,27 @@ function App() {
 
   return (
     <>
-      <ProgramsContext.Provider value={{ programs, setPrograms }}>
-        <ExercisesContext.Provider
-          value={{ privateExercises, setPrivateExercises, sharedExercises }}
-        >
-          <div className="container">
-            <Header />
-            <UserMenu />
-            <div className="container-nav-main">
-              {/* <Routes>
-                <Route path="view_program/:id"></Route>
-              </Routes> */}
-              <Dashboard />
-            </div>
-          </div>
-        </ExercisesContext.Provider>
-      </ProgramsContext.Provider>
+      <div className="container">
+        <Header />
+
+        <ModeContext.Provider value={{ modeDecider, setModeDecider }}>
+          <UserMenu />
+
+          <ProgramsContext.Provider value={{ programs, setPrograms }}>
+            <ExercisesContext.Provider
+              value={{ privateExercises, setPrivateExercises, sharedExercises }}
+            >
+              <div className="container-nav-main">
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                </Routes>
+              </div>
+            </ExercisesContext.Provider>
+          </ProgramsContext.Provider>
+        </ModeContext.Provider>
+      </div>
     </>
   );
 }
 
-export { App, ProgramsContext, ExercisesContext };
+export { App, ProgramsContext, ExercisesContext, ModeContext };
