@@ -16,7 +16,7 @@ const test_programs = programs_data;
 const test_exercises = shared_exercises_data;
 
 const loginInfo = {
-  userName: "gsvennas",
+  userName: "chriswol",
   password: "password",
 };
 
