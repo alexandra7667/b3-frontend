@@ -44,7 +44,7 @@ function App() {
     setSharedExercises(test_exercises);
   }, []);
 
-  fetch("ttp://localhost:4000/auth/signup", {
+  fetch("http://localhost:4000/auth/signup", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(signupInfo),
