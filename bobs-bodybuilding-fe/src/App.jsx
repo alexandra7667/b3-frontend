@@ -6,7 +6,10 @@ import UserMenu from "./UserMenu";
 import Dashboard from "./Dashboard";
 import { programs_data } from "./../test_data/programs_data";
 import { shared_exercises_data } from "../test_data/shared_exercises_data";
+import ShowProgram from "./ShowProgram";
+import CreateProgramPage from "./CreateProgramPage";
 import Login from "./LoginSignup/Login";
+
 
 const ProgramsContext = createContext();
 const ExercisesContext = createContext();
@@ -29,9 +32,11 @@ const signupInfo = {
 }
 
 function App() {
+  const [currentUser, setCurrentUser] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [privateExercises, setPrivateExercises] = useState([]);
   const [sharedExercises, setSharedExercises] = useState([]);
+  const [currentProgram, setCurrentProgram] = useState(null)
 
   //Fylls i på login sida
   const [savedAnswers, setSavedAnswers] = useState([]);
@@ -120,34 +125,39 @@ function App() {
   }, []);
 
 
+
   return (
     <>
-      <div className="container">
-        <Header />
-
-        <LoginContext.Provider value={{ savedAnswers, setSavedAnswers }}>
-          <Login />
-        </LoginContext.Provider>
-
-        {/* Om login fyllts i är savedAnswers set och man kan hämta data och visa ny layout*/}
-      {savedAnswers ? (
       <ModeContext.Provider value={{ modeDecider, setModeDecider }}>
-        <UserMenu />
-
-        <ProgramsContext.Provider value={{ programs, setPrograms }}>
+        <ProgramsContext.Provider
+          value={{ programs, setPrograms, currentProgram, setCurrentProgram }}
+        >
           <ExercisesContext.Provider
             value={{ privateExercises, setPrivateExercises, sharedExercises }}
           >
-            <div className="container-nav-main">
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-              </Routes>
+            <div className="container">
+              <Header />
+
+              <UserMenu />
+
+              <div className="container-nav-main">
+                <main className="layout">
+                  <Routes>
+                    {/* 
+                  UpdateProgram 
+                  CreateProgram 
+                  CreateExercise 
+                  */}
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/program/:id" element={<ShowProgram />} />
+                    <Route path="/create_program" element={<CreateProgramPage />} />
+                  </Routes>
+                </main>
+              </div>
             </div>
           </ExercisesContext.Provider>
         </ProgramsContext.Provider>
       </ModeContext.Provider>
-      ) : null} 
-      </div>
     </>
   );
 }

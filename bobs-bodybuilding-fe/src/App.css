@@ -25,3 +25,16 @@ make the child components lay out using flex, vertically stacked in a column */
   flex-grow: 1;
   background-color: #F0F5FA;
 }
+
+/* make the main fill the remaining width and the full height of the parent */
+.layout {
+  flex-grow: 1;
+  /* if contents of main overflow from the height, add a scrollbar on main */
+  overflow-y: auto;
+
+  /* fix the sidebar to be 100 viewport minus the header */
+  /* max-height: calc(100vh - 20px); */
+  height: 100vh;
+
+  background-color: rgb(163, 226, 141);
+}

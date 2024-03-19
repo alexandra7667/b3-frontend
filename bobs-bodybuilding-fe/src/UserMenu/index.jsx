@@ -1,18 +1,17 @@
-import { useContext } from "react";
 import "./index.css";
-import { ModeContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 export default function UserMenu() {
-  const modeContext = useContext(ModeContext);
+
+  const navigate = useNavigate();
 
   const showPrograms = () => {
-    modeContext.setModeDecider("show programs");
+    navigate('/');
   };
 
-  const showCreateNewProgram = () => {
-    modeContext.setModeDecider("create program");
-  }
-
+  const showCreateProgram = () => {
+    navigate("/create_program");
+  };
     return (
       <div className="menu_grid">
         <div className="left_column">
@@ -21,7 +20,7 @@ export default function UserMenu() {
           </button>
         </div>
         <div className="middle_column">
-          <button className="menu_button" onClick={showCreateNewProgram}>
+          <button className="menu_button" onClick={showCreateProgram}>
             Create new Program
           </button>
         </div>

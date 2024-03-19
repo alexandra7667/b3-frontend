@@ -1,29 +1,27 @@
 import { useContext, useEffect, useState } from "react";
-import "./index.css";
-import { NewProgramExercisesContect } from "../Dashboard";
-import { ProgramsContext } from "../App";
-import { ModeContext } from "../App";
+import { ExercisesToProgramContext } from "..";
+import { ProgramsContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
-export default function CreateProgramForm() {
-
+export default function CreateProgram() {
   const initState = {
     title: "",
-    programexercises: ["",],
+    programexercises: [""],
   };
+
+  const navigate = useNavigate();
 
   const [newProgram, setNewProgram] = useState(initState);
 
-  const newExercisesContext = useContext(NewProgramExercisesContect);
+  const exerciseContext = useContext(ExercisesToProgramContext);
   const programsContext = useContext(ProgramsContext);
-  const modeContext = useContext(ModeContext);
 
   useEffect(() => {
     setNewProgram({
       ...newProgram,
-      programexercises: newExercisesContext.exercisesInNewProgram,
+      programexercises: exerciseContext.programExercises,
     });
-  }, [newProgram, newExercisesContext.exercisesInNewProgram]);
-
+  }, [newProgram, exerciseContext.programExercises]);
 
   const handleChange = (event) => {
     const inputName = event.target.name;
@@ -59,25 +57,26 @@ export default function CreateProgramForm() {
     exercise.reps = inputValue;
   };
 
+  
+
   const handlePost = (event) => {
     event.preventDefault();
 
-    fetch("https://boolean-api-server.fly.dev/svennas/post", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newProgram),
-    })
-      .then((resp) => resp.json())
-      .then((programNew) =>
-        programsContext.setPrograms((program) => [...program, programNew])
-      );
+    // fetch("https://boolean-api-server.fly.dev/svennas/post", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(newProgram),
+    // })
+    //   .then((resp) => resp.json())
+    //   .then((programNew) =>
+    //     programsContext.setPrograms((program) => [...program, programNew])
+    //   );
 
-    // programsContext.setPrograms([...programsContext.programs, newProgram]);
+    programsContext.setPrograms([...programsContext.programs, newProgram]);
 
     setNewProgram(initState);
     // setNewProgram({ ...newProgram, programexercises: [""] });
-
-    modeContext.setModeDecider("show programs");
+    navigate("/");
   };
 
   return (
@@ -95,8 +94,8 @@ export default function CreateProgramForm() {
         />
         <p></p>
 
-        {newExercisesContext.exercisesInNewProgram.length !== 0 &&
-          newExercisesContext.exercisesInNewProgram.map((exercise, index) => (
+        {exerciseContext.programExercises.length !== 0 &&
+          exerciseContext.programExercises.map((exercise, index) => (
             <li key={index}>
               <h2>{exercise.title}</h2>
               <p>{exercise.description}</p>

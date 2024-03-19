@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useContext } from "react";
-import { NewProgramExercisesContect } from "../../Dashboard";
+import { ExercisesToProgramContext } from "..";
 
 ProgramExercisesItem.propTypes = {
   exercise: PropTypes.object,
@@ -9,16 +9,16 @@ ProgramExercisesItem.propTypes = {
 export default function ProgramExercisesItem(props) {
   const { exercise } = props;
 
-  const addExerciseContext = useContext(NewProgramExercisesContect);
+  const exerciseContext = useContext(ExercisesToProgramContext);
 
   const addExercise = () => {
     exercise.sets = 0;
     exercise.reps = 0;
-    addExerciseContext.setExercisesInNewProgram([
-      ...addExerciseContext.exercisesInNewProgram,
+    exerciseContext.setProgramExercises([
+      ...exerciseContext.programExercises,
       exercise,
     ]);
-  }
+  };
 
   return (
     <li>

@@ -14,13 +14,15 @@ export default function ProgramsList() {
 
     return (
       <>
-        <h3>My Programs</h3>
+        <h3 className="programs_header">My Programs</h3>
+        <hr className="header_divider"/>
         {progContext.programs.map((program, index) => (
           <ProgramsItem
             program={program}
             key={index}
             // setClickedProgram={setClickedProgram}
           />
+          
         ))}
       </>
     );
