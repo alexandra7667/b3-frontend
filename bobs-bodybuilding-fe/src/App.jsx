@@ -15,9 +15,16 @@ const ModeContext = createContext();
 const test_programs = programs_data;
 const test_exercises = shared_exercises_data;
 
-const loginInfo = {
-  userName: "chriswol",
-  password: "password"
+// const loginInfo = {
+//   userName: "chriswol",
+//   password: "password"
+// };
+
+const signupInfo = {
+  firstName: "gustav2",
+  lastName: "svennas2",
+  userName: "gsvennas2",
+  password: "password",
 };
 
 function App() {
@@ -25,7 +32,7 @@ function App() {
   const [privateExercises, setPrivateExercises] = useState([]);
   const [sharedExercises, setSharedExercises] = useState([]);
 
-  const [token, setToken] = useState("");
+  // const [token, setToken] = useState("");
 
   const [modeDecider, setModeDecider] = useState("show programs");
 
@@ -37,28 +44,35 @@ function App() {
     setSharedExercises(test_exercises);
   }, []);
 
-  useEffect(() => {
-    fetch("http://localhost:4000/auth/signin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loginInfo),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (!data.token) {
-          throw new Error("Token not found in response");
-        }
-        setToken(data.token);
-      })
-      .catch((error) => {
-        console.error("Error during authentication:", error);
-      });
-  }, []);
+  fetch("ttp://localhost:4000/auth/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(signupInfo),
+  })
+    .then((resp) => console.log(resp.json()))
+
+  // useEffect(() => {
+  //   fetch("http://localhost:4000/auth/signin", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(loginInfo),
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       if (!data.token) {
+  //         throw new Error("Token not found in response");
+  //       }
+  //       setToken(data.token);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error during authentication:", error);
+  //     });
+  // }, []);
 
   // useEffect(() => {
   //   console.log(token);
