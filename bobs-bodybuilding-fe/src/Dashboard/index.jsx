@@ -11,9 +11,7 @@ export default function Dashboard() {
 
     return (
       <main className="dashboard_layout">
-        <ClickedProgramContext.Provider
-          value={{ clickedProgram, setClickedProgram }}
-        >
+        <ClickedProgramContext.Provider value={{ clickedProgram, setClickedProgram }}>
           <div className="dashboard_grid">
             <ProgramsList />
             <div className="exercise_column">
