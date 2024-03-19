@@ -20,6 +20,13 @@ function App() {
   const [privateExercises, setPrivateExercises] = useState([]);
   const [sharedExercises, setSharedExercises] = useState([]);
 
+  const [token, setToken] = useState("");
+
+  const loginInfo = {
+    userName: "gsvennas",
+    password: "password"
+  }
+
   const [modeDecider, setModeDecider] = useState("show programs");
 
   // useEffect(() => {
@@ -30,16 +37,42 @@ function App() {
   //   setSharedExercises(test_exercises);
   // }, []);
 
+   useEffect(() => {
+     fetch("http://localhost:4000/auth/signin"),
+       {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify(loginInfo),
+       }
+         .then((response) => response.json())
+         .then((data) => setToken(data.token))
+         .then(console.log(token));
+   }, [loginInfo, token]);
+
   useEffect(() => {
-    fetch("http://localhost:4000/users/1/programs")
-      .then((response) => response.json())
-      .then((data) => setPrograms(data.data));
+    fetch("http://localhost:4000/users/1/programs"),
+      {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+        .then((response) => response.json())
+        .then((data) => setPrograms(data.data));
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:4000/sharedexercises")
-      .then((response) => response.json())
-      .then((data) => setSharedExercises(data.data));
+    fetch("http://localhost:4000/sharedexercises"),
+      {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+        .then((response) => response.json())
+        .then((data) => setSharedExercises(data.data));
   }, []);
 
   return (
