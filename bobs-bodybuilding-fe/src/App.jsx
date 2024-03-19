@@ -38,14 +38,26 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:4000/auth/signin",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginInfo),
+    fetch("http://localhost:4000/auth/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginInfo),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
       })
-        .then((response) => response.json())
-        .then((data) => setToken(data.token));
+      .then((data) => {
+        if (!data.token) {
+          throw new Error("Token not found in response");
+        }
+        setToken(data.token);
+      })
+      .catch((error) => {
+        console.error("Error during authentication:", error);
+      });
   }, []);
 
   // useEffect(() => {
