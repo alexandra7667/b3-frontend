@@ -12,6 +12,8 @@ export default function ProgramExercisesItem(props) {
   const addExerciseContext = useContext(NewProgramExercisesContect);
 
   const addExercise = () => {
+    exercise.sets = 0;
+    exercise.reps = 0;
     addExerciseContext.setExercisesInNewProgram([
       ...addExerciseContext.exercisesInNewProgram,
       exercise,

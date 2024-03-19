@@ -16,7 +16,7 @@ export default function ShowProgram() {
       <div>
         <h2>{clickContext.clickedProgram.title}</h2>
 
-        {clickContext.clickedProgram.exercises.map((exercise, index) => (
+        {clickContext.clickedProgram.programexercises.map((exercise, index) => (
           <li key={index}>
             <h3>{exercise.title}</h3>
             <p>Description: {exercise.description}</p>
