@@ -38,12 +38,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:4000/auth/signin"),
+    fetch("http://localhost:4000/auth/signin",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginInfo),
-      }
+      })
         .then((response) => response.json())
         .then((data) => setToken(data.token));
   }, [token]);
