@@ -46,11 +46,11 @@ function App() {
       })
         .then((response) => response.json())
         .then((data) => setToken(data.token));
-  }, [token]);
+  }, []);
 
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
+  // useEffect(() => {
+  //   console.log(token);
+  // }, [token]);
 
   // useEffect(() => {
   //   fetch("http://localhost:4000/users/1/programs"),
