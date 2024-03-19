@@ -17,7 +17,7 @@ const test_exercises = shared_exercises_data;
 
 const loginInfo = {
   userName: "chriswol",
-  password: "password",
+  password: "password"
 };
 
 function App() {
