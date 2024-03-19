@@ -44,13 +44,12 @@ function App() {
     setSharedExercises(test_exercises);
   }, []);
 
-  useEffect(() => {
+  
     fetch("http://localhost:4000/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(signupInfo),
-    }).then((resp) => console.log(resp.json()));
-  }, []);
+    })
 
   // useEffect(() => {
   //   fetch("http://localhost:4000/auth/signin", {
