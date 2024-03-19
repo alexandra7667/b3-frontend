@@ -1,7 +1,7 @@
 export const programs_data = [
   {
     title: "The 100 program",
-    exercises: [
+    programexercises: [
       {
         title: "Situps",
         description: "Just regular situps",
@@ -24,7 +24,7 @@ export const programs_data = [
   },
   {
     title: "The lazy",
-    exercises: [
+    programexercises: [
       {
         title: "Sleep",
         description: "Take a deserved nap",
