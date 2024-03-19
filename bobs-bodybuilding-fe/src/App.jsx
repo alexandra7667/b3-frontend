@@ -15,10 +15,10 @@ const ModeContext = createContext();
 const test_programs = programs_data;
 const test_exercises = shared_exercises_data;
 
- const loginInfo = {
-   userName: "gsvennas",
-   password: "password",
- };
+const loginInfo = {
+  userName: "gsvennas",
+  password: "password",
+};
 
 function App() {
   const [programs, setPrograms] = useState([]);
@@ -37,17 +37,20 @@ function App() {
     setSharedExercises(test_exercises);
   }, []);
 
-   useEffect(() => {
-     fetch("http://localhost:4000/auth/signin"),
-       {
-         method: "POST",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify(loginInfo),
-       }
-         .then((response) => response.json())
-         .then((data) => setToken(data.token))
-         .then(console.log(token));
-   }, [token]);
+  useEffect(() => {
+    fetch("http://localhost:4000/auth/signin"),
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginInfo),
+      }
+        .then((response) => response.json())
+        .then((data) => setToken(data.token));
+  }, [token]);
+
+  useEffect(() => {
+    console.log(token);
+  }, [token]);
 
   // useEffect(() => {
   //   fetch("http://localhost:4000/users/1/programs"),
