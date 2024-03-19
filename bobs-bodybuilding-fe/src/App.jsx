@@ -6,10 +6,11 @@ import UserMenu from "./UserMenu";
 import Dashboard from "./Dashboard";
 import { programs_data } from "./../test_data/programs_data";
 import { shared_exercises_data } from "../test_data/shared_exercises_data";
+import ShowProgram from "./ShowProgram";
+import CreateProgramPage from "./CreateProgramPage";
 
 const ProgramsContext = createContext();
 const ExercisesContext = createContext();
-
 const ModeContext = createContext();
 
 const test_programs = programs_data;
@@ -20,17 +21,19 @@ const test_exercises = shared_exercises_data;
 //   password: "password"
 // };
 
-const signupInfo = {
-  firstName: "gustav2",
-  lastName: "svennas2",
-  userName: "gsvennas2",
-  password: "password"
-}
+// const signupInfo = {
+//   firstName: "gustav2",
+//   lastName: "svennas2",
+//   userName: "gsvennas2",
+//   password: "password"
+// }
 
 function App() {
+  const [currentUser, setCurrentUser] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [privateExercises, setPrivateExercises] = useState([]);
   const [sharedExercises, setSharedExercises] = useState([]);
+  const [currentProgram, setCurrentProgram] = useState(null)
 
   // const [token, setToken] = useState("");
 
@@ -44,13 +47,13 @@ function App() {
     setSharedExercises(test_exercises);
   }, []);
 
-  useEffect(() => {
-    fetch("http://localhost:4000/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(signupInfo),
-    });
-  });
+  // useEffect(() => {
+  //   fetch("http://localhost:4000/auth/signup", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(signupInfo),
+  //   });
+  // });
 
   // useEffect(() => {
   //   fetch("http://localhost:4000/auth/signin", {
@@ -107,25 +110,36 @@ function App() {
 
   return (
     <>
-      <div className="container">
-        <Header />
+      <ModeContext.Provider value={{ modeDecider, setModeDecider }}>
+        <ProgramsContext.Provider
+          value={{ programs, setPrograms, currentProgram, setCurrentProgram }}
+        >
+          <ExercisesContext.Provider
+            value={{ privateExercises, setPrivateExercises, sharedExercises }}
+          >
+            <div className="container">
+              <Header />
 
-        <ModeContext.Provider value={{ modeDecider, setModeDecider }}>
-          <UserMenu />
+              <UserMenu />
 
-          <ProgramsContext.Provider value={{ programs, setPrograms }}>
-            <ExercisesContext.Provider
-              value={{ privateExercises, setPrivateExercises, sharedExercises }}
-            >
               <div className="container-nav-main">
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                </Routes>
+                <main className="layout">
+                  <Routes>
+                    {/* 
+                  UpdateProgram 
+                  CreateProgram 
+                  CreateExercise 
+                  */}
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/program/:id" element={<ShowProgram />} />
+                    <Route path="/create_program" element={<CreateProgramPage />} />
+                  </Routes>
+                </main>
               </div>
-            </ExercisesContext.Provider>
-          </ProgramsContext.Provider>
-        </ModeContext.Provider>
-      </div>
+            </div>
+          </ExercisesContext.Provider>
+        </ProgramsContext.Provider>
+      </ModeContext.Provider>
     </>
   );
 }

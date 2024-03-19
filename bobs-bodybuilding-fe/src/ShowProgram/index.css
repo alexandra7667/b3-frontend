@@ -1,0 +1,9 @@
+.specific_program_container {
+  background-color: rgb(17, 150, 137);
+  margin: auto;
+  height: 80%;
+  width: 70%;
+  border-radius: 1%;
+  margin-top: 50px;
+  text-align: center;
+}

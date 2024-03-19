@@ -1,0 +1,28 @@
+.create_grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  flex-direction: row;
+  flex-grow: 1;
+  background-color: rgb(163, 226, 141);
+  margin-inline: 3%;
+
+  height: 100%;
+
+  text-align: center;
+}
+
+.create_column {
+  overflow-y: scroll;
+  background-color: rgb(17, 150, 137);
+  height: 800px;
+  margin: 20px;
+  border-radius: 2%;
+}
+
+.exercise_column {
+  overflow-y: scroll;
+  background-color: rgb(41, 144, 217);
+  height: 800px;
+  margin: 20px;
+  border-radius: 2%;
+}

@@ -1,8 +1,5 @@
 import PropTypes from "prop-types";
-import { ClickedProgramContext } from "..";
-import { ModeContext } from "../../App";
-import { useContext } from "react";
-import { EditProgramContext } from "..";
+import { useNavigate } from "react-router-dom";
 
 ProgramsItem.propTypes = {
   program: PropTypes.object,
@@ -12,24 +9,17 @@ ProgramsItem.propTypes = {
 export default function ProgramsItem(props) {
   const { program } = props;
 
-  const clickContext = useContext(ClickedProgramContext);
-  const modeContext = useContext(ModeContext);
-  const editContext = useContext(EditProgramContext);
+  const navigate = useNavigate();
 
-  const setProgramToShow = () => {
-    clickContext.setClickedProgram(program)
-  }
-
-  const setModeToEdit = () => {
-    modeContext.setModeDecider("edit program")
-    editContext.setProgramToEdit(program);
-  }
+  const goToProgram = () => {
+    navigate(`/program/${program.id}`);
+  };
 
   return (
     <div className="programs_layout">
       <h2>{program.title}</h2>
-      <button onClick={setProgramToShow}>Show</button>
-      <button onClick={setModeToEdit}>Edit</button>
+      <button onClick={goToProgram}>Show</button>
+      <button>Edit</button>
     </div>
   );
 }

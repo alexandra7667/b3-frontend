@@ -1,13 +1,15 @@
 import { useContext } from "react";
 import "./index.css";
-import { EditProgramContext } from "../Dashboard";
+import { EditProgramContext } from "../../Dashboard";
 // import { ProgramsContext } from "../App";
-import { ModeContext } from "../App";
+import { ModeContext } from "../../App";
+import { UpdateExerciseContext } from "../../Dashboard";
 
 export default function EditProgramForm() {
   const editContext = useContext(EditProgramContext);
 //   const programsContext = useContext(ProgramsContext);
   const modeContext = useContext(ModeContext);
+  const updateContext = useContext(UpdateExerciseContext);
 
   const handleEdit = (event) => {
     const inputName = event.target.name;
@@ -20,6 +22,12 @@ export default function EditProgramForm() {
       });
     }
   };
+
+  const updateExercise = (exercise) => {
+    console.log(exercise);
+    modeContext.setModeDecider("update exercise");
+    updateContext.setExerciseToUpdate(exercise);
+  }
 
   const handlePost = (event) => {
     event.preventDefault();
@@ -58,7 +66,7 @@ export default function EditProgramForm() {
                 Sets: {exercise.sets} Reps: {exercise.reps}
               </p>
             </li>
-            <button>Update</button>
+            <button onClick={updateExercise(exercise)}>Update</button>
           </div>
         ))}
 

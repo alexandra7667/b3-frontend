@@ -1,5 +1,6 @@
 export const programs_data = [
   {
+    id: 1,
     title: "The 100 program",
     programexercises: [
       {
@@ -23,6 +24,7 @@ export const programs_data = [
     ],
   },
   {
+    id: 2,
     title: "The lazy",
     programexercises: [
       {
