@@ -4,67 +4,100 @@ import { ProgramsContext, UserContext } from "../../App";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditProgramForm() {
-  const editContext = useContext(EditProgramContext);
-  const programsContext = useContext(ProgramsContext);
-  const userContext = useContext(UserContext);
+  const { program, setProgram } = useContext(EditProgramContext);
+  const { programs, setPrograms } = useContext(ProgramsContext);
+  const { userId, token } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   const { id } = useParams();
 
+  /** Handles changes to title of program */
   const handleEdit = (event) => {
     const inputName = event.target.name;
     const inputValue = event.target.value;
 
     if (inputName === "title") {
-      editContext.setProgram({
-        ...editContext.program,
+      setProgram({
+        ...program,
         title: inputValue,
       });
     }
   };
 
+  /** Handles changes to the number of sets for a certain exercise */
   const changeSets = (event, exercise) => {
     const inputValue = event.target.value;
     exercise.sets = inputValue;
   };
 
+  /** Handles changes to the number of reps for a certain exercise */
   const changeReps = (event, exercise) => {
     const inputValue = event.target.value;
     exercise.reps = inputValue;
   };
 
+  /** Handles what happpens when pressing the button post (when finished editing the program) */
   const handlePost = (event) => {
     event.preventDefault();
 
-    const updatedPrograms = programsContext.programs.map((program) =>
-      Number(program.id) === Number(id)
-        ? { ...program, ...editContext.program }
-        : program
+    const updatedPrograms = programs.map((program) =>
+      Number(program.id) === Number(id) ? { ...program, ...program } : program
     );
 
     //Skicka uppdatering till databas PUT
     postToDatabase();
 
-    programsContext.setPrograms(updatedPrograms);
+    setPrograms(updatedPrograms);
 
     navigate("/dashboard");
   };
 
+  /** Sends the changed program to the database */
   const postToDatabase = async () => {
-    const programResponse = await fetch(`http://localhost:4000/users/${userContext.userId}/programs/${editContext.program.id}`, {
-      method: "PUT",
-      headers: {
-        'Authorization': `Bearer ${userContext.token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editContext.program),
-    });
+    const programResponse = await fetch(
+      `http://localhost:4000/users/${userId}/programs/${program.id}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(program),
+      }
+    );
 
     if (!programResponse.ok) {
-      throw new Error('Failed to update program');
+      throw new Error("Failed to update program");
     }
-  }
+  };
+
+  const removeExercise = (exercise) => {
+    deleteOnDatabase(exercise);
+
+    const exercisesCopy = [...program.programExercises];
+    const programIndex = exercisesCopy.indexOf(exercise);
+    if (programIndex !== -1) {
+      exercisesCopy.splice(programIndex, 1);
+      setProgram({ ...program, programExercises: [exercisesCopy] });
+    }
+  };
+
+  const deleteOnDatabase = async (exercise) => {
+    const response = await fetch(
+      `http://localhost:4000/users/${userId}/programs/${program.id}/programexercises/${exercise.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to delete exercise");
+    }
+  };
 
   return (
     <form className="edit_program_layout">
@@ -76,11 +109,11 @@ export default function EditProgramForm() {
           type="text"
           id="title"
           name="title"
-          value={editContext.program.title}
+          value={program.title}
           onChange={handleEdit}
         />
         <p></p>
-        {editContext.program.programExercises.map((exercise, index) => (
+        {program.programExercises.map((exercise, index) => (
           <div key={index}>
             <li>
               <h3>{exercise.title}</h3>
@@ -92,7 +125,7 @@ export default function EditProgramForm() {
                 id="sets"
                 name="sets"
                 placeholder={exercise.sets}
-                value={editContext.program.programExercises.sets}
+                value={program.programExercises.sets}
                 onChange={(event) => changeSets(event, exercise)}
               />
               <p></p>
@@ -103,13 +136,19 @@ export default function EditProgramForm() {
                 id="reps"
                 name="reps"
                 placeholder={exercise.reps}
-                value={editContext.program.programExercises.reps}
+                value={program.programExercises.reps}
                 onChange={(event) => changeReps(event, exercise)}
               />
+              <p></p>
+              <button onClick={removeExercise(exercise)}>
+                Remove Exercise
+              </button>
             </li>
             {/* <button onClick={updateExercise(exercise)}>Update</button> */}
           </div>
         ))}
+
+        <hr className="edit_program_divider" />
 
         <button className="post_button" type="submit" onClick={handlePost}>
           <p className="button_text">Post</p>
