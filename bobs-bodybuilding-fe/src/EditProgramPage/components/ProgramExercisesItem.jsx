@@ -12,7 +12,6 @@ export default function ProgramExercisesItem(props) {
   const editContext = useContext(EditProgramContext);
 
   const addExercise = () => {
-    console.log("panda")
     exercise.sets = 0;
     exercise.reps = 0;
     editContext.setProgram({

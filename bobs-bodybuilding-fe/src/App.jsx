@@ -27,13 +27,6 @@ function App() {
   const [userName, setUserName] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
-  /* For local testing without connection to database or backend */
-  // useEffect(() => {
-  //   setSharedExercises(test_exercises);
-  //   setPrivateExercises(test_exercises);
-  //   setPrograms(test_programs);
-  // }, []);
-
   return (
     <>
       <ProgramsContext.Provider
