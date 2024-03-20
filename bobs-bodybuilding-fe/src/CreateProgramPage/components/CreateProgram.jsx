@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ExercisesToProgramContext } from "..";
-import { ProgramsContext } from "../../App";
+import { ProgramsContext, UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 const initState = {
@@ -12,6 +12,7 @@ export default function CreateProgram() {
 
   const exerciseContext = useContext(ExercisesToProgramContext);
   const programsContext = useContext(ProgramsContext);
+  const userContext = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ export default function CreateProgram() {
   useEffect(() => {
     setNewProgram({
       ...newProgram,
-      programexercises: exerciseContext.programExercises,
+      programExercises: exerciseContext.programExercises,
     });
   }, [exerciseContext.programExercises]);
 
@@ -31,52 +32,47 @@ export default function CreateProgram() {
     if (inputName === "title") {
       setNewProgram({ ...newProgram, title: inputValue });
     }
-    console.log("Check to see if newProgram changes: ", newProgram);
   };
 
   const changeSets = (event, exercise) => {
     const inputValue = event.target.value;
-    console.log(
-      "In change sets. Input value: ",
-      inputValue,
-      " and the exercise: ",
-      exercise
-    );
-
     exercise.sets = inputValue;
   };
 
   const changeReps = (event, exercise) => {
     const inputValue = event.target.value;
-    console.log(
-      "In change REPS. Input value: ",
-      inputValue,
-      " and the exercise: ",
-      exercise
-    );
-
     exercise.reps = inputValue;
   };
 
   const handlePost = (event) => {
     event.preventDefault();
 
-    // fetch("https://boolean-api-server.fly.dev/svennas/post", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(newProgram),
-    // })
-    //   .then((resp) => resp.json())
-    //   .then((programNew) =>
-    //     programsContext.setPrograms((program) => [...program, programNew])
-    //   );
+    // skicka till databas
+    postToDatabase();
 
     programsContext.setPrograms([...programsContext.programs, newProgram]);
 
     setNewProgram(initState);
-    // setNewProgram({ ...newProgram, programexercises: [""] });
-    navigate("/");
+
+    navigate("/dashboard");
   };
+
+  const postToDatabase = async () => {
+    const programResponse = await fetch(`http://localhost:4000/users/${userContext.userId}/programs`, {
+          method: "POST",
+          headers: {
+            'Authorization': `Bearer ${userContext.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newProgram),
+        });
+
+        if (!programResponse.ok) {
+          throw new Error('Failed to post program');
+        }
+
+    //Program exercises kommer ej med
+  }
 
   return (
     <form className="create_program_layout">
@@ -104,7 +100,7 @@ export default function CreateProgram() {
                 type="text"
                 id="sets"
                 name="sets"
-                value={newProgram.programexercises.sets}
+                value={newProgram.programExercises.sets}
                 onChange={(event) => changeSets(event, exercise)}
               />
               <p></p>
@@ -114,7 +110,7 @@ export default function CreateProgram() {
                 type="text"
                 id="reps"
                 name="reps"
-                value={newProgram.programexercises.reps}
+                value={newProgram.programExercises.reps}
                 onChange={(event) => changeReps(event, exercise)}
               />
             </li>

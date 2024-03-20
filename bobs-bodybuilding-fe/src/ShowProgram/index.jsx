@@ -16,6 +16,7 @@ export default function ShowProgram() {
         (program) => Number(program.id) === Number(id)
       )
     );
+
   }, [programsContext.programs, id]);
 
   if (!program) return <div></div>;
@@ -24,7 +25,7 @@ export default function ShowProgram() {
     <div className="specific_program_container">
       <h2>{program.title}</h2>
 
-      {program.programexercises.map((exercise, index) => (
+      {program.programExercises.map((exercise, index) => (
         <li key={index}>
           <h3>{exercise.title}</h3>
           <p>Description: {exercise.description}</p>
