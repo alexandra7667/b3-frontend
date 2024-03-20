@@ -32,7 +32,7 @@ export default function UserMenu() {
         </div>
         <div className="right_column">
           <button className="menu_button" onClick={showCreateExercise}>
-            Create new Exercise
+            Private Exercises
           </button>
         </div>
       </div>
