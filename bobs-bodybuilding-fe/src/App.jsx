@@ -9,9 +9,9 @@ import { shared_exercises_data } from "../test_data/shared_exercises_data";
 import ShowProgram from "./ShowProgram";
 import CreateProgramPage from "./CreateProgramPage";
 import EditProgramPage from "./EditProgramPage";
+import CreateExercisePage from "./CreateExercisePage";
 import Login from "./LoginSignup/Login";
-import Signup from "./LoginSignup/SignUp";
-
+import Signup from "./LoginSignup/Signup";
 
 const ProgramsContext = createContext();
 const ExercisesContext = createContext();
@@ -37,7 +37,7 @@ function App() {
     setSharedExercises(test_exercises);
     setPrivateExercises(test_exercises);
     setPrograms(test_programs);
-  }, [])
+  }, []);
 
   //Fylls i på login sida
   // const [savedAnswers, setSavedAnswers] = useState([]);
@@ -123,8 +123,6 @@ function App() {
   //   fetchData();
   // }, []);
 
-
-
   return (
     <>
       <ProgramsContext.Provider
@@ -135,7 +133,7 @@ function App() {
         >
           <div className="container">
             <Header />
-            {!loggedIn && (
+            {/* {!loggedIn && (
               <>
                 <UserContext.Provider
                   value={{ setToken, setUserId, setUserName, setLoggedIn }}
@@ -149,32 +147,34 @@ function App() {
             )}
 
             {loggedIn && (
-              <>
-                <UserMenu />
+              <> */}
+            <UserMenu />
 
-                <div className="container-nav-main">
-                  <main className="layout">
-                    <Routes>
-                      {/* 
-                UpdateProgram 
-                CreateProgram 
-                CreateExercise 
-                */}
-                      <Route path="/" element={<Dashboard />} />
-                      <Route path="/program/:id" element={<ShowProgram />} />
-                      <Route
-                        path="/create_program"
-                        element={<CreateProgramPage />}
-                      />
-                      <Route
-                        path="/edit_program/:id"
-                        element={<EditProgramPage />}
-                      />
-                    </Routes>
-                  </main>
-                </div>
-              </>
-            )}
+            <div className="container-nav-main">
+              <main className="layout">
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/program/:id" element={<ShowProgram />} />
+                  <Route
+                    path="/create_program"
+                    element={<CreateProgramPage />}
+                  />
+                  <Route
+                    path="/edit_program/:id"
+                    element={<EditProgramPage />}
+                  />
+                  <Route
+                    path="/create_exercise"
+                    element={<CreateExercisePage />}
+                  />
+                </Routes>
+              </main>
+            </div>
+
+            {/* </>
+            )} */}
+
+
           </div>
         </ExercisesContext.Provider>
       </ProgramsContext.Provider>

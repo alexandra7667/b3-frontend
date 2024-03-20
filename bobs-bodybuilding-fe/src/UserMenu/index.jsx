@@ -13,6 +13,11 @@ export default function UserMenu() {
     navigate("/create_program");
   };
 
+  const showCreateExercise = () => {
+    navigate("/create_exercise");
+  };
+
+
     return (
       <div className="menu_grid">
         <div className="left_column">
@@ -26,7 +31,9 @@ export default function UserMenu() {
           </button>
         </div>
         <div className="right_column">
-          <button className="menu_button">Create new Exercise</button>
+          <button className="menu_button" onClick={showCreateExercise}>
+            Create new Exercise
+          </button>
         </div>
       </div>
     );
