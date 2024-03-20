@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./Header";
@@ -7,9 +7,9 @@ import Dashboard from "./Dashboard";
 import ShowProgram from "./ShowProgram";
 import CreateProgramPage from "./CreateProgramPage";
 import EditProgramPage from "./EditProgramPage";
-import Signup from "./LoginSignup/Signup";
+import CreateExercisePage from "./CreateExercisePage";
 import Login from "./LoginSignup/Login";
-
+import Signup from "./LoginSignup/Signup";
 
 const ProgramsContext = createContext();
 const ExercisesContext = createContext();
@@ -25,14 +25,20 @@ function App() {
   //Fylls i på login sida
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState(0);
-  const [userName, setUserName] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+
+  /* For local testing without connection to database or backend */
+  // useEffect(() => {
+  //   setSharedExercises(test_exercises);
+  //   setPrivateExercises(test_exercises);
+  //   setPrograms(test_programs);
+  // }, []);
 
   return (
     <>
       <ProgramsContext.Provider value={{ programs, setPrograms, currentProgram, setCurrentProgram }}>
         <ExercisesContext.Provider value={{ privateExercises, setPrivateExercises, sharedExercises, setSharedExercises }}>
-          <UserContext.Provider value={{ token, setToken, userId, setUserId, setUserName, setLoggedIn }}>
+          <UserContext.Provider value={{ token, setToken, userId, setUserId, setLoggedIn }}>
             <div className="container">
               <Header />
 
@@ -42,31 +48,35 @@ function App() {
                     <Route path="/" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                   </Routes>
-                </>
-              )}
+              </>
+            )}
 
-              {loggedIn && (
-                <>
-                  <UserMenu />
+            {loggedIn && (
+              <>
+                <UserMenu />
 
-                  <div className="container-nav-main">
-                    <main className="layout">
-                      <Routes>
-                        {/* 
-                  UpdateProgram 
-                  CreateProgram 
-                  CreateExercise 
-                  */}
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/program/:id" element={<ShowProgram />} />
-                        <Route path="/create_program" element={<CreateProgramPage />} />
-                      </Routes>
-                    </main>
-                  </div>
-
-                </>
-              )}
-
+                <div className="container-nav-main">
+                  <main className="layout">
+                    <Routes>
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="/program/:id" element={<ShowProgram />} />
+                      <Route
+                        path="/create_program"
+                        element={<CreateProgramPage />}
+                      />
+                      <Route
+                        path="/edit_program/:id"
+                        element={<EditProgramPage />}
+                      />
+                      <Route
+                        path="/create_exercise"
+                        element={<CreateExercisePage />}
+                        />
+                    </Routes>
+                  </main>
+                </div>
+              </>
+            )}
             </div>
           </UserContext.Provider>
         </ExercisesContext.Provider>
