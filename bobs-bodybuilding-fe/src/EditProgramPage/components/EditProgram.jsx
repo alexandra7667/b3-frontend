@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { EditProgramContext } from "..";
-import { ProgramsContext } from "../../App";
+import { ProgramsContext, UserContext } from "../../App";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditProgramForm() {
   const editContext = useContext(EditProgramContext);
   const programsContext = useContext(ProgramsContext);
+  const userContext = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -25,38 +26,16 @@ export default function EditProgramForm() {
 
   const changeSets = (event, exercise) => {
     const inputValue = event.target.value;
-    console.log(
-      "In change sets. Input value: ",
-      inputValue,
-      " and the exercise: ",
-      exercise
-    );
-
     exercise.sets = inputValue;
   };
 
   const changeReps = (event, exercise) => {
     const inputValue = event.target.value;
-    console.log(
-      "In change REPS. Input value: ",
-      inputValue,
-      " and the exercise: ",
-      exercise
-    );
-
     exercise.reps = inputValue;
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-
-    // fetch("https://boolean-api-server.fly.dev/svennas/post", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(newProgram),
-    // })
-    //   .then((resp) => resp.json())
-    //   .then((postNew) => progContext.setPrograms((post) => [...post, postNew]));
 
     const updatedPrograms = programsContext.programs.map((program) =>
       Number(program.id) === Number(id)
@@ -64,10 +43,28 @@ export default function EditProgramForm() {
         : program
     );
 
+    //Skicka uppdatering till databas PUT
+    postToDatabase();
+
     programsContext.setPrograms(updatedPrograms);
 
     navigate("/dashboard");
   };
+
+  const postToDatabase = async () => {
+    const programResponse = await fetch(`http://localhost:4000/users/${userContext.userId}/programs/${editContext.program.id}`, {
+      method: "PUT",
+      headers: {
+        'Authorization': `Bearer ${userContext.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editContext.program),
+    });
+
+    if (!programResponse.ok) {
+      throw new Error('Failed to update program');
+    }
+  }
 
   return (
     <form className="edit_program_layout">
@@ -83,7 +80,7 @@ export default function EditProgramForm() {
           onChange={handleEdit}
         />
         <p></p>
-        {editContext.program.programexercises.map((exercise, index) => (
+        {editContext.program.programExercises.map((exercise, index) => (
           <div key={index}>
             <li>
               <h3>{exercise.title}</h3>
@@ -95,7 +92,7 @@ export default function EditProgramForm() {
                 id="sets"
                 name="sets"
                 placeholder={exercise.sets}
-                value={editContext.program.programexercises.sets}
+                value={editContext.program.programExercises.sets}
                 onChange={(event) => changeSets(event, exercise)}
               />
               <p></p>
@@ -106,7 +103,7 @@ export default function EditProgramForm() {
                 id="reps"
                 name="reps"
                 placeholder={exercise.reps}
-                value={editContext.program.programexercises.reps}
+                value={editContext.program.programExercises.reps}
                 onChange={(event) => changeReps(event, exercise)}
               />
             </li>

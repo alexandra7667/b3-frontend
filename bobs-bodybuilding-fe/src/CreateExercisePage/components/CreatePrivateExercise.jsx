@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ExercisesContext } from "../../App";
+import { ExercisesContext, UserContext } from "../../App";
 
 const initState = {
   title: "",
@@ -8,6 +8,7 @@ const initState = {
 
 export default function CreatePrivateExercise() {
   const exercisesContext = useContext(ExercisesContext);
+  const userContext = useContext(UserContext);
 
   const [newExercise, setNewExercise] = useState(initState);
 
@@ -27,15 +28,8 @@ export default function CreatePrivateExercise() {
   const handlePost = (event) => {
     event.preventDefault();
 
-    // fetch("https://boolean-api-server.fly.dev/svennas/post", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(newProgram),
-    // })
-    //   .then((resp) => resp.json())
-    //   .then((programNew) =>
-    //     programsContext.setPrograms((program) => [...program, programNew])
-    //   );
+    // skicka till databas
+    postToDatabase();
 
     exercisesContext.setPrivateExercises([
       ...exercisesContext.privateExercises,
@@ -45,6 +39,21 @@ export default function CreatePrivateExercise() {
     setNewExercise(initState);
     // // setNewProgram({ ...newProgram, programexercises: [""] });
   };
+
+  const postToDatabase = async () => {
+    const programResponse = await fetch(`http://localhost:4000/users/${userContext.userId}/privateexercises`, {
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${userContext.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newExercise),
+    });
+
+    if (!programResponse.ok) {
+      throw new Error('Failed to post exercise');
+    }
+  }
 
   return (
     <div className="create_exercise_container">
