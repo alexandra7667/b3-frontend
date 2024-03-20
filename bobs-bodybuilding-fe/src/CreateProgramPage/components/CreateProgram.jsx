@@ -22,7 +22,7 @@ export default function CreateProgram() {
       ...newProgram,
       programexercises: exerciseContext.programExercises,
     });
-  }, [newProgram, exerciseContext.programExercises]);
+  }, [exerciseContext.programExercises]);
 
   const handleChange = (event) => {
     const inputName = event.target.name;

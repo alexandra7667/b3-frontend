@@ -1,16 +1,9 @@
 import { useContext } from "react";
 import { ProgramsContext } from "../../App"
-// import PropTypes from "prop-types";
 import ProgramsItem from "./ProgramsItem";
-
-// ProgramsList.propTypes = {
-//   setClickedProgram: PropTypes.func,
-// };
 
 export default function ProgramsList() {
     const progContext = useContext(ProgramsContext);
-
-    // const { setClickedProgram } = props;
 
     return (
       <>
@@ -20,7 +13,6 @@ export default function ProgramsList() {
           <ProgramsItem
             program={program}
             key={index}
-            // setClickedProgram={setClickedProgram}
           />
           
         ))}

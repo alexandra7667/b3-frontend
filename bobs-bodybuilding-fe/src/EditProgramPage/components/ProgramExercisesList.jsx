@@ -7,7 +7,7 @@ export default function ProgramExercisesList() {
 
     const exercisesContext = useContext(ExercisesContext);
 
-    console.log(exercisesContext.sharedExercises);
+    console.log("hej");
 
     return (
       <>
