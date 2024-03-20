@@ -15,7 +15,6 @@ const ProgramsContext = createContext();
 const ExercisesContext = createContext();
 const UserContext = createContext();
 
-
 function App() {
   const [programs, setPrograms] = useState([]);
   const [privateExercises, setPrivateExercises] = useState([]);
