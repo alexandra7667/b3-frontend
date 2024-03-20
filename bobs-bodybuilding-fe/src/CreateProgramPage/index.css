@@ -12,7 +12,7 @@
 }
 
 .create_column {
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: rgb(17, 150, 137);
   height: 800px;
   margin: 20px;
@@ -20,9 +20,16 @@
 }
 
 .exercise_column {
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: rgb(41, 144, 217);
   height: 800px;
   margin: 20px;
   border-radius: 2%;
+}
+
+.exercises_divider {
+  border: 1px solid #cdcdcd9f;
+  width: 90%;
+  margin: auto;
+  margin-top: 30px;
 }

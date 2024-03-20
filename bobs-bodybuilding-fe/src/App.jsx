@@ -8,158 +8,162 @@ import { programs_data } from "./../test_data/programs_data";
 import { shared_exercises_data } from "../test_data/shared_exercises_data";
 import ShowProgram from "./ShowProgram";
 import CreateProgramPage from "./CreateProgramPage";
-import Login from "./LoginSignup/Login";
+import EditProgramPage from "./EditProgramPage";
+// import Login from "./LoginSignup/Login";
 
 
 const ProgramsContext = createContext();
 const ExercisesContext = createContext();
-const ModeContext = createContext();
 const LoginContext = createContext();
 
 const test_programs = programs_data;
 const test_exercises = shared_exercises_data;
 
-const loginInfo = {
-  userName: "ahern",
-  password: "password"
-};
+// const loginInfo = {
+//   userName: "ahern",
+//   password: "password"
+// };
 
-const signupInfo = {
-  firstName: "gustav3",
-  lastName: "svennas3",
-  userName: "gsvennas3",
-  password: "password"
-}
+// const signupInfo = {
+//   firstName: "gustav3",
+//   lastName: "svennas3",
+//   userName: "gsvennas3",
+//   password: "password"
+// }
 
 function App() {
-  const [currentUser, setCurrentUser] = useState([]);
+  // const [currentUser, setCurrentUser] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [privateExercises, setPrivateExercises] = useState([]);
   const [sharedExercises, setSharedExercises] = useState([]);
-  const [currentProgram, setCurrentProgram] = useState(null)
+  const [currentProgram, setCurrentProgram] = useState(null);
+
+  /* For local testing without connection to database or backend */
+  useEffect(() => {
+    setSharedExercises(test_exercises);
+    setPrivateExercises(test_exercises);
+    setPrograms(test_programs);
+  }, [])
 
   //Fylls i på login sida
-  const [savedAnswers, setSavedAnswers] = useState([]);
+  // const [savedAnswers, setSavedAnswers] = useState([]);
 
-  const [token, setToken] = useState("");
-  const [userId, setUserId] = useState(0);
-  const [userName, setUserName] = useState("");
+  // const [token, setToken] = useState("");
+  // const [userId, setUserId] = useState(0);
+  // const [userName, setUserName] = useState("");
 
-  const [modeDecider, setModeDecider] = useState("show programs");
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       // First fetch to sign in and get token, userId, and userName
+  //       const signInResponse = await fetch("http://localhost:4000/auth/signin", {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify(loginInfo),
+  //       });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // First fetch to sign in and get token, userId, and userName
-        const signInResponse = await fetch("http://localhost:4000/auth/signin", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(loginInfo),
-        });
+  //       if (!signInResponse.ok) {
+  //         throw new Error('Failed to sign in');
+  //       }
 
-        if (!signInResponse.ok) {
-          throw new Error('Failed to sign in');
-        }
+  //       const signInData = await signInResponse.json();
+  //       const { token, id, userName } = signInData;
+  //       setToken(token);
+  //       setUserId(id);
+  //       setUserName(userName);
 
-        const signInData = await signInResponse.json();
-        const { token, id, userName } = signInData;
-        setToken(token);
-        setUserId(id);
-        setUserName(userName);
+  //       // Second fetch to retrieve programs
+  //       const programsResponse = await fetch(`http://localhost:4000/users/${id}/programs`, {
+  //         method: "GET",
+  //         headers: {
+  //           'Authorization': `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
 
-        // Second fetch to retrieve programs
-        const programsResponse = await fetch(`http://localhost:4000/users/${id}/programs`, {
-          method: "GET",
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+  //       if (!programsResponse.ok) {
+  //         throw new Error('Failed to fetch programs');
+  //       }
 
-        if (!programsResponse.ok) {
-          throw new Error('Failed to fetch programs');
-        }
+  //       const programsData = await programsResponse.json();
+  //       setPrograms(programsData.data);
 
-        const programsData = await programsResponse.json();
-        setPrograms(programsData.data);
+  //       // Third fetch to retrieve shared exercises
+  //       const sharedExercisesResponse = await fetch("http://localhost:4000/sharedexercises", {
+  //         method: "GET",
+  //         headers: {
+  //           'Authorization': `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
 
-        // Third fetch to retrieve shared exercises
-        const sharedExercisesResponse = await fetch("http://localhost:4000/sharedexercises", {
-          method: "GET",
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+  //       if (!sharedExercisesResponse.ok) {
+  //         throw new Error('Failed to fetch shared exercises');
+  //       }
 
-        if (!sharedExercisesResponse.ok) {
-          throw new Error('Failed to fetch shared exercises');
-        }
+  //       const sharedExercisesData = await sharedExercisesResponse.json();
+  //       setSharedExercises(sharedExercisesData.data);
 
-        const sharedExercisesData = await sharedExercisesResponse.json();
-        setSharedExercises(sharedExercisesData.data);
+  //       // Fourth fetch to get private exercises
+  //       const privateExercisesResponse = await fetch(`http://localhost:4000/users/${id}/privateexercises`, {
+  //         method: "GET",
+  //         headers: {
+  //           'Authorization': `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
 
-        // Fourth fetch to get private exercises
-        const privateExercisesResponse = await fetch(`http://localhost:4000/users/${id}/privateexercises`, {
-          method: "GET",
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+  //       if (!privateExercisesResponse.ok) {
+  //         throw new Error('Failed to fetch private exercises');
+  //       }
 
-        if (!privateExercisesResponse.ok) {
-          throw new Error('Failed to fetch private exercises');
-        }
+  //       const privateExercisesData = await privateExercisesResponse.json();
+  //       setPrivateExercises(privateExercisesData.data);
 
-        const privateExercisesData = await privateExercisesResponse.json();
-        setPrivateExercises(privateExercisesData.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
 
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    // Call fetchData function
-    fetchData();
-  }, []);
+  //   // Call fetchData function
+  //   fetchData();
+  // }, []);
 
 
 
   return (
     <>
-      <ModeContext.Provider value={{ modeDecider, setModeDecider }}>
-        <ProgramsContext.Provider
-          value={{ programs, setPrograms, currentProgram, setCurrentProgram }}
+      <ProgramsContext.Provider
+        value={{ programs, setPrograms, currentProgram, setCurrentProgram }}
+      >
+        <ExercisesContext.Provider
+          value={{ privateExercises, setPrivateExercises, sharedExercises }}
         >
-          <ExercisesContext.Provider
-            value={{ privateExercises, setPrivateExercises, sharedExercises }}
-          >
-            <div className="container">
-              <Header />
+          <div className="container">
+            <Header />
 
-              <UserMenu />
+            <UserMenu />
 
-              <div className="container-nav-main">
-                <main className="layout">
-                  <Routes>
-                    {/* 
-                  UpdateProgram 
-                  CreateProgram 
-                  CreateExercise 
-                  */}
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/program/:id" element={<ShowProgram />} />
-                    <Route path="/create_program" element={<CreateProgramPage />} />
-                  </Routes>
-                </main>
-              </div>
+            <div className="container-nav-main">
+              <main className="layout">
+                <Routes>
+                  {/* 
+                UpdateProgram 
+                CreateProgram 
+                CreateExercise 
+                */}
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/program/:id" element={<ShowProgram />} />
+                  <Route path="/create_program" element={<CreateProgramPage />} />
+                  <Route path="/edit_program/:id" element={<EditProgramPage />} />
+                </Routes>
+              </main>
             </div>
-          </ExercisesContext.Provider>
-        </ProgramsContext.Provider>
-      </ModeContext.Provider>
+          </div>
+        </ExercisesContext.Provider>
+      </ProgramsContext.Provider>
     </>
   );
 }
 
-export { App, ProgramsContext, ExercisesContext, ModeContext, LoginContext };
+export { App, ProgramsContext, ExercisesContext, LoginContext };

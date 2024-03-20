@@ -1,14 +1,9 @@
 import { useContext } from "react";
-import "./index.css";
 import { EditProgramContext } from "../../Dashboard";
-// import { ProgramsContext } from "../App";
-import { ModeContext } from "../../App";
 import { UpdateExerciseContext } from "../../Dashboard";
 
 export default function EditProgramForm() {
   const editContext = useContext(EditProgramContext);
-//   const programsContext = useContext(ProgramsContext);
-  const modeContext = useContext(ModeContext);
   const updateContext = useContext(UpdateExerciseContext);
 
   const handleEdit = (event) => {
@@ -25,7 +20,6 @@ export default function EditProgramForm() {
 
   const updateExercise = (exercise) => {
     console.log(exercise);
-    modeContext.setModeDecider("update exercise");
     updateContext.setExerciseToUpdate(exercise);
   }
 
@@ -40,7 +34,6 @@ export default function EditProgramForm() {
     //   .then((resp) => resp.json())
     //   .then((postNew) => progContext.setPrograms((post) => [...post, postNew]));
 
-    modeContext.setModeDecider("show programs");
   };
 
   return (

@@ -15,11 +15,15 @@ export default function ProgramsItem(props) {
     navigate(`/program/${program.id}`);
   };
 
+  const goToEditProgram = () => {
+    navigate(`/edit_program/${program.id}`);
+  }
+
   return (
     <div className="programs_layout">
       <h2>{program.title}</h2>
       <button onClick={goToProgram}>Show</button>
-      <button>Edit</button>
+      <button onClick={goToEditProgram}>Edit</button>
     </div>
   );
 }
