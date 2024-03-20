@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const initState = {
   title: "",
-  programexercises: [],
+  programExercises: [],
 };
 
 export default function CreateProgram() {
@@ -59,19 +59,17 @@ export default function CreateProgram() {
 
   const postToDatabase = async () => {
     const programResponse = await fetch(`http://localhost:4000/users/${userContext.userId}/programs`, {
-          method: "POST",
-          headers: {
-            'Authorization': `Bearer ${userContext.token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newProgram),
-        });
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${userContext.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProgram),
+    });
 
-        if (!programResponse.ok) {
-          throw new Error('Failed to post program');
-        }
-
-    //Program exercises kommer ej med
+    if (!programResponse.ok) {
+      throw new Error('Failed to post program');
+    }
   }
 
   return (
