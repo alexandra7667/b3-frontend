@@ -66,7 +66,7 @@ export default function EditProgramForm() {
 
     programsContext.setPrograms(updatedPrograms);
 
-    navigate("/");
+    navigate("/dashboard");
   };
 
   return (
