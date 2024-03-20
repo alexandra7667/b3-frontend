@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import ProgramExercisesList from "./components/ProgramExercisesList";
-import EditProgramForm from "./components/EditProgram";
+import EditProgram from "./components/EditProgram";
 import { ProgramsContext } from "../App";
 import "./index.css";
 import { useParams } from "react-router-dom";
@@ -16,6 +16,8 @@ export default function EditProgramPage() {
   const [program, setProgram] = useState(null);
 
   useEffect(() => {
+    console.log("in edit program")    //Problem: EditProgramForm
+
     setProgram(
       programsContext.programs.find(
         (program) => Number(program.id) === Number(id)
@@ -34,7 +36,7 @@ export default function EditProgramPage() {
     >
       <div className="edit_grid">
         <div className="edit_column">
-          <EditProgramForm />
+          <EditProgram />
         </div>
         <div className="edit_exercises_column">
           <ProgramExercisesList />
