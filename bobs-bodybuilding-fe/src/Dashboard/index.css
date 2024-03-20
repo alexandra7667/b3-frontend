@@ -11,6 +11,7 @@
 }
 
 .programs_container {
+  overflow-y: auto;
   background-color: rgb(17, 150, 137);
   margin: auto;
   height: 80%;

@@ -3,18 +3,19 @@ import { ExercisesToProgramContext } from "..";
 import { ProgramsContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 
+const initState = {
+  title: "",
+  programexercises: [],
+};
+
 export default function CreateProgram() {
-  const initState = {
-    title: "",
-    programexercises: [""],
-  };
+
+  const exerciseContext = useContext(ExercisesToProgramContext);
+  const programsContext = useContext(ProgramsContext);
 
   const navigate = useNavigate();
 
   const [newProgram, setNewProgram] = useState(initState);
-
-  const exerciseContext = useContext(ExercisesToProgramContext);
-  const programsContext = useContext(ProgramsContext);
 
   useEffect(() => {
     setNewProgram({
@@ -56,8 +57,6 @@ export default function CreateProgram() {
 
     exercise.reps = inputValue;
   };
-
-  
 
   const handlePost = (event) => {
     event.preventDefault();

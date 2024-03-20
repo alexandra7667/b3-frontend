@@ -1,0 +1,35 @@
+.edit_grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  flex-direction: row;
+  flex-grow: 1;
+  background-color: rgb(163, 226, 141);
+  margin-inline: 3%;
+
+  height: 100%;
+
+  text-align: center;
+}
+
+.edit_column {
+  overflow-y: auto;
+  background-color: rgb(17, 150, 137);
+  height: 800px;
+  margin: 20px;
+  border-radius: 2%;
+}
+
+.edit_exercises_column {
+  overflow-y: auto;
+  background-color: rgb(41, 144, 217);
+  height: 800px;
+  margin: 20px;
+  border-radius: 2%;
+}
+
+.exercises_divider {
+  border: 1px solid #cdcdcd9f;
+  width: 90%;
+  margin: auto;
+  margin-top: 30px;
+}

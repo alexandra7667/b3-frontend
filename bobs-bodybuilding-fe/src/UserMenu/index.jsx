@@ -12,6 +12,7 @@ export default function UserMenu() {
   const showCreateProgram = () => {
     navigate("/create_program");
   };
+
     return (
       <div className="menu_grid">
         <div className="left_column">
