@@ -16,7 +16,7 @@ export default function ProgramExercisesItem(props) {
     exercise.reps = 0;
     editContext.setProgram({
       ...editContext.program,
-      programexercises: [...editContext.program.programexercises, exercise],
+      programExercises: [...editContext.program.programExercises, exercise],
     });
   };
 
