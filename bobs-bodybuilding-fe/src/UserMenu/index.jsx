@@ -6,7 +6,7 @@ export default function UserMenu() {
   const navigate = useNavigate();
 
   const showPrograms = () => {
-    navigate('/');
+    navigate('/dashboard');
   };
 
   const showCreateProgram = () => {
