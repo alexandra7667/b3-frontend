@@ -1,11 +1,5 @@
 import "./index.css";
 import ProgramsList from "./components/ProgramsList";
-import { createContext} from "react";
-
-const ClickedProgramContext = createContext();
-const NewProgramExercisesContect = createContext();
-const EditProgramContext = createContext();
-const UpdateExerciseContext = createContext();
 
 export default function Dashboard() {
 
@@ -15,10 +9,3 @@ export default function Dashboard() {
       </div>
     );
 }
-
-export {
-  ClickedProgramContext,
-  NewProgramExercisesContect,
-  EditProgramContext,
-  UpdateExerciseContext,
-};

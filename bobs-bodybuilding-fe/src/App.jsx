@@ -9,27 +9,16 @@ import { shared_exercises_data } from "../test_data/shared_exercises_data";
 import ShowProgram from "./ShowProgram";
 import CreateProgramPage from "./CreateProgramPage";
 import EditProgramPage from "./EditProgramPage";
-// import Login from "./LoginSignup/Login";
+import Login from "./LoginSignup/Login";
+import Signup from "./LoginSignup/SignUp";
 
 
 const ProgramsContext = createContext();
 const ExercisesContext = createContext();
-const LoginContext = createContext();
+const UserContext = createContext();
 
 const test_programs = programs_data;
 const test_exercises = shared_exercises_data;
-
-// const loginInfo = {
-//   userName: "ahern",
-//   password: "password"
-// };
-
-// const signupInfo = {
-//   firstName: "gustav3",
-//   lastName: "svennas3",
-//   userName: "gsvennas3",
-//   password: "password"
-// }
 
 function App() {
   // const [currentUser, setCurrentUser] = useState([]);
@@ -37,6 +26,11 @@ function App() {
   const [privateExercises, setPrivateExercises] = useState([]);
   const [sharedExercises, setSharedExercises] = useState([]);
   const [currentProgram, setCurrentProgram] = useState(null);
+  const [token, setToken] = useState("");
+  const [userId, setUserId] = useState(0);
+  const [userName, setUserName] = useState("");
+
+  const [loggedIn, setLoggedIn] = useState(false);
 
   /* For local testing without connection to database or backend */
   useEffect(() => {
@@ -141,24 +135,46 @@ function App() {
         >
           <div className="container">
             <Header />
+            {!loggedIn && (
+              <>
+                <UserContext.Provider
+                  value={{ setToken, setUserId, setUserName, setLoggedIn }}
+                >
+                  <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                  </Routes>
+                </UserContext.Provider>
+              </>
+            )}
 
-            <UserMenu />
+            {loggedIn && (
+              <>
+                <UserMenu />
 
-            <div className="container-nav-main">
-              <main className="layout">
-                <Routes>
-                  {/* 
+                <div className="container-nav-main">
+                  <main className="layout">
+                    <Routes>
+                      {/* 
                 UpdateProgram 
                 CreateProgram 
                 CreateExercise 
                 */}
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/program/:id" element={<ShowProgram />} />
-                  <Route path="/create_program" element={<CreateProgramPage />} />
-                  <Route path="/edit_program/:id" element={<EditProgramPage />} />
-                </Routes>
-              </main>
-            </div>
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="/program/:id" element={<ShowProgram />} />
+                      <Route
+                        path="/create_program"
+                        element={<CreateProgramPage />}
+                      />
+                      <Route
+                        path="/edit_program/:id"
+                        element={<EditProgramPage />}
+                      />
+                    </Routes>
+                  </main>
+                </div>
+              </>
+            )}
           </div>
         </ExercisesContext.Provider>
       </ProgramsContext.Provider>
@@ -166,4 +182,4 @@ function App() {
   );
 }
 
-export { App, ProgramsContext, ExercisesContext, LoginContext };
+export { App, ProgramsContext, ExercisesContext, UserContext };

@@ -9,15 +9,16 @@ ProgramExercisesItem.propTypes = {
 export default function ProgramExercisesItem(props) {
   const { exercise } = props;
 
-  const exerciseContext = useContext(EditProgramContext);
+  const editContext = useContext(EditProgramContext);
 
   const addExercise = () => {
+    console.log("panda")
     exercise.sets = 0;
     exercise.reps = 0;
-    exerciseContext.setProgramExercises([
-      ...exerciseContext.programExercises,
-      exercise,
-    ]);
+    editContext.setProgram({
+      ...editContext.program,
+      programexercises: [...editContext.program.programexercises, exercise],
+    });
   };
 
   return (

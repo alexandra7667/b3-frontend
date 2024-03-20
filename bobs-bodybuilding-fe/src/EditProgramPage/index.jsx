@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import ProgramExercisesList from "./components/ProgramExercisesList";
-// import EditProgramForm from "./components/EditProgram";
+import EditProgramForm from "./components/EditProgram";
 import { ProgramsContext } from "../App";
 import "./index.css";
 import { useParams } from "react-router-dom";
@@ -12,7 +12,7 @@ export default function EditProgramPage() {
 
   const { id } = useParams();
 
-  const [programExercises, setProgramExercises] = useState([]);
+  const [newExercise, setNewExercise] = useState([]);
   const [program, setProgram] = useState(null);
 
   useEffect(() => {
@@ -21,15 +21,20 @@ export default function EditProgramPage() {
         (program) => Number(program.id) === Number(id)
       )
     );
+    // console.log(program.programexercises);
   }, [programsContext.programs, id]);
+
+  if (program === null) {
+    return <div></div>
+  }
 
   return (
     <EditProgramContext.Provider
-      value={{ programExercises, setProgramExercises, program }}
+      value={{ newExercise, setNewExercise, program, setProgram }}
     >
       <div className="edit_grid">
         <div className="edit_column">
-          {/* <EditProgramForm /> */}
+          <EditProgramForm />
         </div>
         <div className="edit_exercises_column">
           <ProgramExercisesList />
