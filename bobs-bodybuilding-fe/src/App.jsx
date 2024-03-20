@@ -25,6 +25,7 @@ function App() {
   //Fylls i på login sida
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState(0);
+  const [userName, setUserName] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
   /* For local testing without connection to database or backend */
@@ -36,9 +37,28 @@ function App() {
 
   return (
     <>
-      <ProgramsContext.Provider value={{ programs, setPrograms, currentProgram, setCurrentProgram }}>
-        <ExercisesContext.Provider value={{ privateExercises, setPrivateExercises, sharedExercises, setSharedExercises }}>
-          <UserContext.Provider value={{ token, setToken, userId, setUserId, setLoggedIn }}>
+      <ProgramsContext.Provider
+        value={{ programs, setPrograms, currentProgram, setCurrentProgram }}
+      >
+        <ExercisesContext.Provider
+          value={{
+            privateExercises,
+            setPrivateExercises,
+            sharedExercises,
+            setSharedExercises,
+          }}
+        >
+          <UserContext.Provider
+            value={{
+              token,
+              setToken,
+              userId,
+              setUserId,
+              setLoggedIn,
+              userName,
+              setUserName,
+            }}
+          >
             <div className="container">
               <Header />
 
@@ -48,39 +68,39 @@ function App() {
                     <Route path="/" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                   </Routes>
-              </>
-            )}
+                </>
+              )}
 
-            {loggedIn && (
-              <>
-                <UserMenu />
+              {loggedIn && (
+                <>
+                  <UserMenu />
 
-                <div className="container-nav-main">
-                  <main className="layout">
-                    <Routes>
-                      <Route path="/" element={<Dashboard />} />
-                      <Route path="/program/:id" element={<ShowProgram />} />
-                      <Route
-                        path="/create_program"
-                        element={<CreateProgramPage />}
-                      />
-                      <Route
-                        path="/edit_program/:id"
-                        element={<EditProgramPage />}
-                      />
-                      <Route
-                        path="/create_exercise"
-                        element={<CreateExercisePage />}
+                  <div className="container-nav-main">
+                    <main className="layout">
+                      <Routes>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/program/:id" element={<ShowProgram />} />
+                        <Route
+                          path="/create_program"
+                          element={<CreateProgramPage />}
                         />
-                    </Routes>
-                  </main>
-                </div>
-              </>
-            )}
+                        <Route
+                          path="/edit_program/:id"
+                          element={<EditProgramPage />}
+                        />
+                        <Route
+                          path="/create_exercise"
+                          element={<CreateExercisePage />}
+                        />
+                      </Routes>
+                    </main>
+                  </div>
+                </>
+              )}
             </div>
           </UserContext.Provider>
         </ExercisesContext.Provider>
-      </ProgramsContext.Provider >
+      </ProgramsContext.Provider>
     </>
   );
 }

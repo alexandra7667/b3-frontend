@@ -58,7 +58,7 @@ export default function Login() {
 
     setLoggedIn(true);
 
-    navigate("dashboard");
+    navigate("/dashboard");
   };
 
   const goToSignup = () => {

@@ -6,8 +6,8 @@ import ProgramsList from "./components/ProgramsList";
 
 export default function Dashboard() {
   const { token, userId } = useContext(UserContext);
-  const { programs, setPrograms } = useContext(ProgramsContext);
-  const { privateExercises, setPrivateExercises, sharedExercises, setSharedExercises } = useContext(ExercisesContext);
+  const { setPrograms } = useContext(ProgramsContext);
+  const { setPrivateExercises, setSharedExercises } = useContext(ExercisesContext);
 
   //Lägg in fetches för program, shared exercises, private exercises
     useEffect(() => {
