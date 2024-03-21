@@ -43,7 +43,7 @@ export default function PrivateExercisesItem(props) {
     <li>
       <h2>{exercise.title}</h2>
       <p>{exercise.description}</p>
-      <button onClick={removeExercise}>Delete</button>
+      <button onClick={() => removeExercise}>Delete</button>
     </li>
   );
 }
