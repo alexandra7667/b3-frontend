@@ -16,14 +16,11 @@ export default function EditProgramPage() {
   const [program, setProgram] = useState(null);
 
   useEffect(() => {
-    console.log("in edit program")    //Problem: EditProgramForm
-
     setProgram(
       programsContext.programs.find(
         (program) => Number(program.id) === Number(id)
       )
     );
-    // console.log(program.programexercises);
   }, [programsContext.programs, id]);
 
   if (program === null) {
