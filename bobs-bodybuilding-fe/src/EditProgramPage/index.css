@@ -33,3 +33,38 @@
   margin: auto;
   margin-top: 30px;
 }
+
+.update_program_button {
+  height: fit-content;
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.update_button_text {
+  font-size: medium;
+}
+
+
+.edit_program_divider {
+  width: 90%;
+}
+
+.remove_exercise_button {
+  height: fit-content;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.update_program_breaker {
+  margin: 10px auto;
+  width: 60%;
+  display: flex;
+}
+
+.exercises_in_update_breaker {
+  margin: 10px auto;
+  width: 60%;
+  display: flex;
+  margin-top: 20px;
+}
