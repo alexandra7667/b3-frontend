@@ -1,3 +1,19 @@
 .title {
-    text-align: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.user-creds {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.logout-btn {
+  margin: 10px;
+}
+
+.user-name {
+  margin: 10px;
 }
