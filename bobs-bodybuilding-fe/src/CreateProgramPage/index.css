@@ -62,8 +62,8 @@
 
 .amount_input {
   height: 20px;
-  width: 35%;
-  border-radius: 4%;
+  width: 10%;
+  border-radius: 10px;
 }
 
 .create_exercise_breaker {
