@@ -60,6 +60,7 @@ export default function Login() {
     //Spara i local storage
     localStorage.setItem('token', JSON.stringify(token));
     localStorage.setItem('userId', JSON.stringify(id));
+    localStorage.setItem('userName', JSON.stringify(userName));
 
     setLoggedIn(true);
 
