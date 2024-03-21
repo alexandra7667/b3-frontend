@@ -86,7 +86,7 @@ export default function CreateProgram() {
           value={newProgram.title}
           onChange={handleChange}
         />
-        <hr className="create_program_breaker"/>
+        <hr className="create_program_breaker" />
 
         {exerciseContext.programExercises.length !== 0 &&
           exerciseContext.programExercises.map((exercise, index) => (
@@ -94,6 +94,7 @@ export default function CreateProgram() {
               <h2>{exercise.title}</h2>
               <p>{exercise.description}</p>
               <label>Sets: </label>
+              <br />
               <input
                 className="amount_input"
                 type="text"
@@ -104,6 +105,7 @@ export default function CreateProgram() {
               />
               <p></p>
               <label>Reps: </label>
+              <br />
               <input
                 className="amount_input"
                 type="text"
@@ -112,6 +114,7 @@ export default function CreateProgram() {
                 value={newProgram.programExercises.reps}
                 onChange={(event) => changeReps(event, exercise)}
               />
+              <hr className="create_exercise_breaker" />
             </li>
           ))}
 

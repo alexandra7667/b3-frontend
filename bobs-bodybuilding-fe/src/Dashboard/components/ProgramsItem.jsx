@@ -55,9 +55,15 @@ export default function ProgramsItem(props) {
     <div className="programs_layout">
       <h2>{program.title}</h2>
       <div className="program-btns">
-        <button onClick={goToProgram}>Show</button>
-        <button onClick={goToEditProgram}>Edit</button>
-        <button onClick={removeProgram}>Remove</button>
+        <button className="programs_button" onClick={goToProgram}>
+          Show
+        </button>
+        <button className="programs_button" onClick={goToEditProgram}>
+          Edit
+        </button>
+        <button className="programs_button" onClick={removeProgram}>
+          Remove
+        </button>
       </div>
     </div>
   );

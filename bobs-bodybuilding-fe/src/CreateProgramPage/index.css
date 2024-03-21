@@ -37,6 +37,7 @@
 .create_program_button {
   height: fit-content;
   padding: 15px;
+  margin-top: 20px;
 }
 
 .create_program_button_text {
@@ -51,9 +52,23 @@
 
 .create_program_label_text {
   font-size: large;
-
 }
 
 .create_program_breaker {
-  margin: 10px;
+  margin: 10px auto;
+  width: 60%;
+  display: flex;
+}
+
+.amount_input {
+  height: 20px;
+  width: 10%;
+  border-radius: 10px;
+}
+
+.create_exercise_breaker {
+  margin: 10px auto;
+  width: 60%;
+  display: flex;
+  margin-top: 20px;
 }
