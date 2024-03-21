@@ -7,7 +7,6 @@ export default function Header({ loggedIn, setLoggedIn, userName }) {
   const navigate = useNavigate();
 
   const logout = () => {
-    console.log("logout btn clicked")
     //cleara localstorage
     localStorage.clear();
     //set loggedIn som false
@@ -22,7 +21,7 @@ export default function Header({ loggedIn, setLoggedIn, userName }) {
       {loggedIn && (
         <>
           <div className="user-creds">
-          <h3 className="user-name">{userName}</h3>
+            <h3>{userName}</h3>
             <button className="logout-btn" onClick={logout}>Log out</button>
           </div>
         </>
