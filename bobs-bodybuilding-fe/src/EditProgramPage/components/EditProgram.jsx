@@ -73,15 +73,19 @@ export default function EditProgramForm() {
   };
 
   const removeExercise = (exercise) => {
+    const exercisesCopy = [...program.programExercises];
+    const programIndex = exercisesCopy.indexOf(exercise);
 
     deleteOnDatabase(exercise);
 
-    const exercisesCopy = [...program.programExercises];
-    const programIndex = exercisesCopy.indexOf(exercise);
     if (programIndex !== -1) {
       exercisesCopy.splice(programIndex, 1);
-      setProgram({ ...program, programExercises: [exercisesCopy] });
+      setProgram({ id: program.id, title: program.title, programExercises: [exercisesCopy] });
     }
+
+    console.log("efter delete. program: " + program.title + " program id: " + program.id)
+
+    //navigate(`/edit_program/${program.id}`);
   };
 
   const deleteOnDatabase = async (exercise) => {
@@ -103,8 +107,10 @@ export default function EditProgramForm() {
   return (
     <form className="edit_program_layout">
       <h2>Edit a Program</h2>
+      {program && (
       <div className="insertion_div ">
         <label>Program name: </label>
+        
         <input
           className="title_input"
           type="text"
@@ -113,6 +119,7 @@ export default function EditProgramForm() {
           value={program.title}
           onChange={handleEdit}
         />
+        
         <p></p>
         {program.programExercises.map((exercise, index) => (
           <div key={index}>
@@ -154,6 +161,7 @@ export default function EditProgramForm() {
           <p className="button_text">Post</p>
         </button>
       </div>
+      )}
     </form>
   );
 }
