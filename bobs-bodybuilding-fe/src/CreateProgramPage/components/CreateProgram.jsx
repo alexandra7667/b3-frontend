@@ -76,7 +76,8 @@ export default function CreateProgram() {
     <form className="create_program_layout">
       <h2>Create a new Program</h2>
       <div className="insertion_div ">
-        <label>Program name: </label>
+        <label className="create_program_label_text">Program name: </label>
+        <br />
         <input
           className="title_input"
           type="text"
@@ -85,7 +86,7 @@ export default function CreateProgram() {
           value={newProgram.title}
           onChange={handleChange}
         />
-        <p></p>
+        <hr className="create_program_breaker"/>
 
         {exerciseContext.programExercises.length !== 0 &&
           exerciseContext.programExercises.map((exercise, index) => (
@@ -114,8 +115,12 @@ export default function CreateProgram() {
             </li>
           ))}
 
-        <button className="post_button" type="submit" onClick={handlePost}>
-          <p className="button_text">Post</p>
+        <button
+          className="create_program_button"
+          type="submit"
+          onClick={handlePost}
+        >
+          Post
         </button>
       </div>
     </form>
