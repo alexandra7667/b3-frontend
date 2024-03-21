@@ -44,6 +44,7 @@ export default function PrivateExercisesItem(props) {
       <h2>{exercise.title}</h2>
       <p>{exercise.description}</p>
       <button onClick={removeExercise}>Delete</button>
+      <hr className="create_exercise_breaker" />
     </li>
   );
 }

@@ -59,8 +59,10 @@ export default function CreatePrivateExercise() {
     <div className="create_exercise_container">
       <form className="create_exercise_layout">
         <h2>Create and add a new Exercise</h2>
+        <hr className="update_program_breaker" />
         <div className="add_info_container">
-          <label>Title: </label>
+          <label className="create_program_label_text">Title: </label>
+          <br />
           <input
             className="title_input"
             type="text"
@@ -69,8 +71,9 @@ export default function CreatePrivateExercise() {
             value={newExercise.title}
             onChange={handleChange}
           />
-          <p></p>
-          <label>Description: </label>
+          <br />
+          <label className="create_program_label_text">Description: </label>
+          <br />
           <input
             className="description_input"
             type="text"
@@ -81,8 +84,11 @@ export default function CreatePrivateExercise() {
           />
           <p></p>
 
-          <button className="post_button" type="submit" onClick={handlePost}>
-            <p className="button_text">Add to Private Exercises</p>
+          <button
+            className="update_program_button"
+            type="submit"
+            onClick={handlePost}
+          >Add to Private Exercises
           </button>
         </div>
       </form>
