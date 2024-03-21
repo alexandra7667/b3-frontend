@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
+
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -109,7 +111,10 @@ export default function Signup() {
       </form>
 
       <br />
+      <div className="log-in">
+      <p>Already a user?</p>
       <button onClick={goToLogin}>Log in</button>
+      </div>
     </div>
   );
 }
