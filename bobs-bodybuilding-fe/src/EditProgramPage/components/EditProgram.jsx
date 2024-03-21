@@ -73,6 +73,7 @@ export default function EditProgramForm() {
   };
 
   const removeExercise = (exercise) => {
+
     deleteOnDatabase(exercise);
 
     const exercisesCopy = [...program.programExercises];
@@ -128,7 +129,7 @@ export default function EditProgramForm() {
                 value={program.programExercises.sets}
                 onChange={(event) => changeSets(event, exercise)}
               />
-              <p></p>
+              <br />
               <label>Reps: </label>
               <input
                 className="amount_input"
@@ -139,12 +140,11 @@ export default function EditProgramForm() {
                 value={program.programExercises.reps}
                 onChange={(event) => changeReps(event, exercise)}
               />
-              <p></p>
-              <button onClick={removeExercise(exercise)}>
+              <br />
+              <button onClick={() => removeExercise(exercise)}>
                 Remove Exercise
               </button>
             </li>
-            {/* <button onClick={updateExercise(exercise)}>Update</button> */}
           </div>
         ))}
 
