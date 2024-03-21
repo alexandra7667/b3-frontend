@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -104,7 +105,11 @@ export default function Login() {
       </form>
 
       <br />
-      <button onClick={goToSignup}>Sign up</button>
+      <div className="sign-up">
+        <p>Not already a user?</p>
+        <button className="sign-up-btn" onClick={goToSignup}>Sign up</button>
+      </div>
+
     </div>
   );
 }
