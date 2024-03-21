@@ -39,6 +39,6 @@ make the child components lay out using flex, vertically stacked in a column */
   background-color: rgb(163, 226, 141);
 }
 
-ul {
+li {
   list-style-type: none;
 }
