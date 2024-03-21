@@ -108,59 +108,69 @@ export default function EditProgramForm() {
     <form className="edit_program_layout">
       <h2>Edit a Program</h2>
       {program && (
-      <div className="insertion_div ">
-        <label>Program name: </label>
-        
-        <input
-          className="title_input"
-          type="text"
-          id="title"
-          name="title"
-          value={program.title}
-          onChange={handleEdit}
-        />
-        
-        <p></p>
-        {program.programExercises.map((exercise, index) => (
-          <div key={index}>
-            <li>
-              <h3>{exercise.title}</h3>
-              <p>Description: {exercise.description}</p>
-              <label>Sets: </label>
-              <input
-                className="amount_input"
-                type="text"
-                id="sets"
-                name="sets"
-                placeholder={exercise.sets}
-                value={program.programExercises.sets}
-                onChange={(event) => changeSets(event, exercise)}
-              />
-              <br />
-              <label>Reps: </label>
-              <input
-                className="amount_input"
-                type="text"
-                id="reps"
-                name="reps"
-                placeholder={exercise.reps}
-                value={program.programExercises.reps}
-                onChange={(event) => changeReps(event, exercise)}
-              />
-              <br />
-              <button onClick={() => removeExercise(exercise)}>
-                Remove Exercise
-              </button>
-            </li>
-          </div>
-        ))}
+        <div className="insertion_div ">
+          <label className="create_program_label_text">Program name: </label>
+          <br />
 
-        <hr className="edit_program_divider" />
+          <input
+            className="title_input"
+            type="text"
+            id="title"
+            name="title"
+            value={program.title}
+            onChange={handleEdit}
+          />
 
-        <button className="post_button" type="submit" onClick={handlePost}>
-          <p className="button_text">Post</p>
-        </button>
-      </div>
+          <hr className="update_program_breaker" />
+
+          {program.programExercises.map((exercise, index) => (
+            <div key={index}>
+              <li>
+                <h3>{exercise.title}</h3>
+                <p>{exercise.description}</p>
+                <label>Sets: </label>
+                <br />
+                <input
+                  className="amount_input"
+                  type="text"
+                  id="sets"
+                  name="sets"
+                  placeholder={exercise.sets}
+                  value={program.programExercises.sets}
+                  onChange={(event) => changeSets(event, exercise)}
+                />
+                <br />
+                <label>Reps: </label>
+                <br />
+                <input
+                  className="amount_input"
+                  type="text"
+                  id="reps"
+                  name="reps"
+                  placeholder={exercise.reps}
+                  value={program.programExercises.reps}
+                  onChange={(event) => changeReps(event, exercise)}
+                />
+                <br />
+                <button
+                  className="remove_exercise_button"
+                  onClick={() => removeExercise(exercise)}
+                >
+                  Remove Exercise
+                </button>
+                <hr className="exercises_in_update_breaker" />
+              </li>
+            </div>
+          ))}
+
+          <button
+            className="update_program_button"
+            type="submit"
+            onClick={handlePost}
+          >
+            Update Program
+          </button>
+        </div>
       )}
     </form>
   );

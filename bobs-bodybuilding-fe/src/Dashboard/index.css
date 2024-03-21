@@ -14,11 +14,12 @@
   overflow-y: auto;
   background-color: rgb(41, 46, 45);
   margin: auto;
-  height: 80%;
+  height: 100vh;
   width: 70%;
   border-radius: 1%;
   margin-top: 30px;
   text-align: center;
+  padding-bottom: 20px;
 }
 
 .programs_header {

@@ -17,6 +17,7 @@
   height: 800px;
   margin: 20px;
   border-radius: 2%;
+  
 }
 
 .exercise_column {
@@ -38,6 +39,7 @@
   height: fit-content;
   padding: 15px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .create_program_button_text {
@@ -64,6 +66,7 @@
   height: 20px;
   width: 10%;
   border-radius: 10px;
+  text-align: center;
 }
 
 .create_exercise_breaker {
