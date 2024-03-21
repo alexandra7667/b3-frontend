@@ -56,6 +56,10 @@ export default function Login() {
     setUserId(id);
     setUserName(userName);
 
+    //Spara i local storage
+    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('userId', JSON.stringify(id));
+
     setLoggedIn(true);
 
     navigate("/dashboard");

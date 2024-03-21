@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./Header";
@@ -27,6 +27,24 @@ function App() {
   const [userName, setUserName] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
+  //Hämta userId och token från local storage
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (token) {
+      setLoggedIn(true)
+     setToken(token);
+     console.log("got token: " + token)
+    }
+  }, []);
+
+  useEffect(() => {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    if (userId) {
+     setUserId(userId);
+     console.log("got userId: " + userId)
+    }
+  }, []);
+
   return (
     <>
       <ProgramsContext.Provider
@@ -52,7 +70,7 @@ function App() {
             }}
           >
             <div className="container">
-              <Header />
+              <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
 
               {!loggedIn && (
                 <>
