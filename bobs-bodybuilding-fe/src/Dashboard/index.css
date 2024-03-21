@@ -12,12 +12,12 @@
 
 .programs_container {
   overflow-y: auto;
-  background-color: rgb(17, 150, 137);
+  background-color: rgb(41, 46, 45);
   margin: auto;
   height: 80%;
   width: 70%;
   border-radius: 1%;
-  margin-top: 50px;
+  margin-top: 30px;
   text-align: center;
 }
 
@@ -33,7 +33,6 @@
 }
 
 .programs_layout {
-  padding-top: 30px;
-  margin:auto;
+  margin-bottom: 0px;
   text-align: center;
 }

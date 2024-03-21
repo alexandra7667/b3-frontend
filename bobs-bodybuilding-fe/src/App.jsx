@@ -33,7 +33,6 @@ function App() {
     if (token) {
       setLoggedIn(true)
      setToken(token);
-     console.log("got token: " + token)
     }
   }, []);
 
@@ -41,7 +40,13 @@ function App() {
     const userId = JSON.parse(localStorage.getItem('userId'));
     if (userId) {
      setUserId(userId);
-     console.log("got userId: " + userId)
+    }
+  }, []);
+
+  useEffect(() => {
+    const userName = JSON.parse(localStorage.getItem('userName'));
+    if (userName) {
+     setUserName(userName);
     }
   }, []);
 
@@ -70,7 +75,7 @@ function App() {
             }}
           >
             <div className="container">
-              <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+              <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} userName={userName}/>
 
               {!loggedIn && (
                 <>
