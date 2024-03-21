@@ -27,6 +27,7 @@ export default function ProgramExercisesItem(props) {
       <button className="add_button" onClick={addExercise}>
         Add to program
       </button>
+      <hr className="create_exercise_breaker" />
     </li>
   );
 }
